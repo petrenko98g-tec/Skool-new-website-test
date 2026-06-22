@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "seoulmed-clone",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8753", "--directory", "seoulmed-clone"],
+      "port": 8753
+    },
+    {
+      "name": "astro-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "skool-website"],
+      "port": 4321
+    }
+  ]
+}
