@@ -1,0 +1,1316 @@
+---
+// Figma: https://www.figma.com/design/ohyRoVjTCj6MU336uvmFYF/Final-version?node-id=1-99
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ailine – Healthcare You Can Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Fluid type scale */
+      --size-unit: 16;
+      --size-container-ideal: 1284;
+      --size-container-min: 992px;
+      --size-container-max: 1440px;
+      --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+      --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+
+      /* Colors */
+      --color-dark: #131313;
+      --color-darker: #191815;
+      --color-white: #ffffff;
+      --color-yellow: #fff077;       /* project accent */
+      --color-body: #585858;
+      --color-card-bg: #f2f2f2;
+      --color-cta-bg: #d0e3f1;
+      --color-footer-muted: #7c7c7c;
+      --color-mid-gray: #2f2f2f;
+
+      /* Typography */
+      --font-header: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Geist Mono', monospace;
+
+      /* Radius */
+      --radius-pill: 2em;
+      --radius-full: 3em;
+      --radius-lg: 1.5em;
+
+      /* Misc */
+      --transition-fast: 150ms ease;
+      --shadow-ailine:
+        0 0 0.5px rgba(0,0,0,0.03),
+        0 2px 1px rgba(0,0,0,0.03),
+        0 4px 1.5px rgba(0,0,0,0.02),
+        0 8px 1.5px rgba(0,0,0,0),
+        0 12px 1.5px rgba(0,0,0,0);
+    }
+
+    @media screen and (max-width: 991px) {
+      :root {
+        --size-container-ideal: 834;
+        --size-container-min: 768px;
+        --size-container-max: 991px;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      :root {
+        --size-container-ideal: 550;
+        --size-container-min: 480px;
+        --size-container-max: 767px;
+      }
+    }
+    @media screen and (max-width: 479px) {
+      :root {
+        --size-container-ideal: 390;
+        --size-container-min: 320px;
+        --size-container-max: 479px;
+      }
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--size-font);
+      color: var(--color-dark);
+      background: var(--color-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, picture, svg { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    :focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 2px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      font-weight: 400;
+      line-height: 1.429;
+      letter-spacing: 1.68px;
+      text-transform: uppercase;
+      border-radius: var(--radius-pill);
+      padding: 0.75em 1.25em;
+      white-space: nowrap;
+      transition: opacity var(--transition-fast);
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    .btn--ghost {
+      background: rgba(18,40,53,0.25);
+      color: var(--color-white);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn--primary {
+      background: var(--color-yellow);
+      color: var(--color-dark);
+      padding: 0.25em 0.25em 0.25em 1em;
+    }
+
+    .btn__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5em;
+      height: 2.5em;
+      border-radius: var(--radius-full);
+      flex: 0 0 auto;
+      background: var(--color-darker);
+      color: var(--color-white);
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1em;
+      padding: 1em 2.25em;
+      width: 100%;
+    }
+
+    .navbar__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75em;
+      flex: 0 0 auto;
+      color: var(--color-white);
+    }
+
+    .navbar__logo { width: 2.5em; height: 1.875em; }
+
+    .navbar__wordmark {
+      font-family: var(--font-header);
+      font-size: 1.5em;
+      line-height: 1;
+      letter-spacing: -1.44px;
+      color: var(--color-white);
+    }
+
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .navbar__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625em;
+      padding: 0.75em 1.25em;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      line-height: 1.429;
+      letter-spacing: 1.68px;
+      text-transform: uppercase;
+      color: var(--color-white);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      transition: background-color var(--transition-fast);
+    }
+    .navbar__item:hover { background: rgba(255,255,255,0.1); }
+
+    .navbar__item--with-arrow img {
+      width: 0.875em;
+      height: 0.875em;
+      transform: rotate(180deg);
+    }
+
+    .navbar__cta { flex: 0 0 auto; padding: 0.25em 0.25em 0.25em 1.25em; }
+
+    /* Hamburger — white rounded square, hidden on desktop */
+    .navbar__burger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 2.75em;
+      height: 2.75em;
+      flex: 0 0 auto;
+      border: none;
+      border-radius: 0.625em;
+      background: var(--color-white);
+      color: var(--color-dark);
+      cursor: pointer;
+    }
+    .navbar__burger svg { width: 1.25em; height: auto; }
+
+    @media (max-width: 991px) {
+      .navbar { padding: 1em 1.25em; }
+      .navbar__menu { display: none; }
+    }
+    @media (max-width: 767px) {
+      .navbar { padding: 0.75em 1em; }
+      .navbar__cta { display: none; }
+      .navbar__burger { display: inline-flex; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      padding: 0.75em;
+      background: var(--color-white);
+    }
+
+    .hero__card {
+      position: relative;
+      width: 100%;
+      height: min(51.875em, calc(100vh - 1.5em));
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero__content {
+      margin-top: 3em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5em;
+      padding-inline: 1.5em;
+      text-align: center;
+    }
+
+    .hero__heading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      max-width: 54.625em;
+    }
+
+    .hero__title {
+      font-family: var(--font-header);
+      font-weight: 500;
+      font-size: 3.75em;
+      line-height: 1.2;
+      letter-spacing: -3.6px;
+      color: var(--color-white);
+    }
+
+    .hero__title-line { display: block; }
+    .hero__title--muted { color: rgba(255,255,255,0.73); }
+
+    .hero__description {
+      font-size: 1em;
+      line-height: 1.5;
+      letter-spacing: -0.32px;
+      color: var(--color-white);
+      max-width: 31.1875em;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 0.75em;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero__rating {
+      position: absolute;
+      left: 50%;
+      bottom: 4.8125em;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5625em;
+      width: 11.8125em;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero__rating-text {
+      font-size: 0.875em;
+      line-height: 1.429;
+      letter-spacing: -0.28px;
+      color: var(--color-white);
+    }
+
+    .hero__stars { display: flex; gap: 0.25em; }
+    .hero__stars img { width: 1em; height: 1em; }
+
+    .hero__floating {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 33em;
+      pointer-events: none;
+      z-index: 1;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%, transparent 4%,
+        rgba(0,0,0,0.55) 18%, black 32%,
+        black 68%, rgba(0,0,0,0.55) 82%,
+        transparent 96%, transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%, transparent 4%,
+        rgba(0,0,0,0.55) 18%, black 32%,
+        black 68%, rgba(0,0,0,0.55) 82%,
+        transparent 96%, transparent 100%
+      );
+    }
+
+    /* ── 3D ORBIT ── */
+    .hero-3d {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 2000px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .hero-3d__wrap {
+      position: absolute;
+      width: 80rem;
+      height: 80rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      transform: translateY(10%) translateZ(-20rem) rotateX(-77deg);
+    }
+
+    .hero-3d__group {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: hero-3d-spin 40s linear infinite;
+      will-change: transform;
+    }
+
+    .hero-3d__group--first  { --base-rot: -15deg; }
+    .hero-3d__group--second { --base-rot: -30deg; }
+    .hero-3d__group--third  { --base-rot:   0deg; }
+
+    @keyframes hero-3d-spin {
+      from { transform: rotate(var(--base-rot)) translateZ(1px); }
+      to   { transform: rotate(calc(var(--base-rot) - 360deg)) translateZ(1px); }
+    }
+
+    .hero-3d__slot {
+      position: absolute;
+      top: 0;
+      width: 8rem;
+      height: 50%;
+      transform-style: preserve-3d;
+      transform-origin: 50% 100%;
+      transform: rotate(0deg) translateZ(-1px);
+    }
+    .hero-3d__slot.is-1 { transform: rotate(-45deg)  translateZ(-1px); }
+    .hero-3d__slot.is-2 { transform: rotate(-90deg)  translateZ(-1px); }
+    .hero-3d__slot.is-3 { transform: rotate(-135deg) translateZ(-1px); }
+    .hero-3d__slot.is-4 { transform: rotate(-180deg) translateZ(-1px); }
+    .hero-3d__slot.is-5 { transform: rotate(-225deg) translateZ(-1px); }
+    .hero-3d__slot.is-6 { transform: rotate(-270deg) translateZ(-1px); }
+    .hero-3d__slot.is-7 { transform: rotate(-315deg) translateZ(-1px); }
+
+    .hero-3d__card {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 0.5em;
+      transform: rotateX(90deg);
+      transform-style: preserve-3d;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-3d__group {
+        animation: none;
+        transform: rotate(var(--base-rot)) translateZ(1px);
+      }
+    }
+
+    /* Hero responsive */
+    @media (max-width: 991px) {
+      .hero { padding: 0.5em; }
+      .hero__card { height: auto; min-height: 60em; }
+      .hero__title { font-size: 3em; letter-spacing: -2.88px; }
+      .hero__rating { bottom: 3.5em; }
+      .hero__floating { height: 26em; width: 160%; z-index: 0; }
+      .hero-3d__wrap { width: 60rem; height: 60rem; transform: translateY(10%) translateZ(-15rem) rotateX(-77deg); }
+      .hero-3d__slot { width: 6rem; }
+    }
+    @media (max-width: 767px) {
+      .hero__card { min-height: 60em; }
+      .hero__content { margin-top: 5.5em; }
+      .hero__title { font-size: 2.25em; letter-spacing: -2px; }
+      .hero__heading, .hero__description { max-width: 100%; }
+      .hero__actions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .hero__rating { bottom: 3.5em; }
+      .hero__floating { height: 32em; width: 150%; bottom: 4.5em; }
+      .hero-3d__wrap { width: 92rem; height: 92rem; transform: translateY(10%) translateZ(-23rem) rotateX(-78deg); }
+      .hero-3d__slot { width: 9.5rem; }
+    }
+    @media (max-width: 479px) {
+      .hero__title { font-size: 1.75em; letter-spacing: -1.5px; }
+      .hero__card { min-height: 52em; }
+      .hero__content { margin-top: 4.5em; }
+      .hero__rating { bottom: 3em; }
+      .hero__floating { height: 27em; width: 160%; bottom: 4em; }
+      .hero-3d__wrap { width: 74rem; height: 74rem; transform: translateY(10%) translateZ(-18.5rem) rotateX(-78deg); }
+      .hero-3d__slot { width: 7.5rem; }
+    }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 72px 52px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7em;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-body);
+    }
+    .section-label::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background: var(--color-dark);
+      flex: 0 0 auto;
+    }
+
+    .section-title {
+      font-family: var(--font-header);
+      font-size: 48px;
+      font-weight: 500;
+      line-height: 56px;
+      letter-spacing: -0.06em;
+      color: var(--color-dark);
+    }
+
+    .section-sub {
+      font-size: 18px;
+      line-height: 28px;
+      color: var(--color-body);
+      letter-spacing: -0.02em;
+      max-width: 520px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    /* ── COMPANY SECTION (Figma 1:1) ── */
+    .logos-section { background: var(--color-white); }
+
+    .logos-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      overflow: hidden;
+    }
+
+    .logos-inner img { height: 24px; width: 99px; object-fit: contain; flex: 0 0 auto; }
+
+    /* ── SERVICES ── */
+    .services-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+
+    .service-card {
+      background: var(--color-card-bg);
+      border-radius: 20px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .service-icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-yellow);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .service-icon img, .service-icon svg { width: 20px; height: 20px; }
+
+    .service-card h3 {
+      font-family: var(--font-header);
+      font-size: 22px; font-weight: 500; line-height: 30px; letter-spacing: -0.04em;
+    }
+    .service-card p { font-size: 15px; line-height: 23px; color: var(--color-body); }
+
+    /* ── TEAM ── */
+    .team-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+    .team-nav { display: flex; gap: 8px; }
+
+    .icon-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      background: var(--color-card-bg);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 16px;
+    }
+    .icon-btn.dark { background: var(--color-dark); border-color: var(--color-dark); color: var(--color-white); }
+
+    .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+
+    .doctor-card { background: var(--color-card-bg); border-radius: 20px; overflow: hidden; }
+    .doctor-card-img { width: 100%; height: 280px; object-fit: cover; object-position: top; }
+    .doctor-card-body { padding: 20px 24px 28px; }
+    .doctor-card-body h3 { font-family: var(--font-header); font-size: 22px; font-weight: 500; line-height: 30px; letter-spacing: -0.04em; }
+    .doctor-specialty { font-family: var(--font-mono); font-size: 13px; color: var(--color-body); letter-spacing: 0.04em; margin-top: 6px; }
+    .doctor-years { margin-top: 10px; font-size: 14px; color: var(--color-body); }
+
+    /* ── EXPERTISE ── */
+    .expertise-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .expertise-item {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--color-card-bg);
+      border-radius: 20px; overflow: hidden; min-height: 280px;
+    }
+
+    .expertise-text {
+      padding: 48px;
+      display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    }
+
+    .expertise-icon {
+      width: 40px; height: 40px;
+      background: var(--color-yellow);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .expertise-icon img, .expertise-icon svg { width: 20px; height: 20px; }
+
+    .expertise-text h3 { font-family: var(--font-header); font-size: 28px; font-weight: 500; line-height: 36px; letter-spacing: -0.04em; }
+    .expertise-text p { font-size: 16px; line-height: 24px; color: var(--color-body); max-width: 360px; }
+    .expertise-img { overflow: hidden; position: relative; }
+    .expertise-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── TESTIMONIALS (Figma 1:1) ── */
+    .testimonials-bg { background: var(--color-card-bg); }
+
+    /* Left-aligned section header variant (matches Figma testimonials) */
+    .section-header--left {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .section-header--left .section-sub { max-width: 100%; }
+
+    /* Carousel track — shows several cards at once, scrolls horizontally */
+    .testimonial-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .testimonial-track::-webkit-scrollbar { display: none; }
+
+    .testimonial-card {
+      position: relative;
+      flex: 0 0 clamp(240px, 24%, 300px);
+      aspect-ratio: 3 / 4;
+      scroll-snap-align: start;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .testimonial-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .testimonial-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 84.5px;
+      height: 20px;
+      z-index: 2;
+    }
+
+    .testimonial-overlay {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-end;
+      padding: 12px;
+      width: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+      -webkit-backdrop-filter: blur(7.5px);
+      backdrop-filter: blur(7.5px);
+    }
+
+    .testimonial-quote {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .testimonial-quote-icon { width: 32px; height: 32px; }
+    .testimonial-quote-text {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.32px;
+      color: var(--color-white);
+    }
+    .testimonial-author-line {
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: -0.24px;
+      color: var(--color-white);
+      width: 100%;
+    }
+
+    .testimonial-nav { display: flex; gap: 16px; justify-content: center; margin-top: 32px; }
+    .testimonial-nav button {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #d5d5d5; background: var(--color-white);
+      cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── CTA ── */
+    .cta-wrapper { padding: 0 12px 72px; background: var(--color-card-bg); }
+
+    .cta-section {
+      background: var(--color-cta-bg);
+      border-radius: 24px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 420px;
+    }
+
+    .cta-text { padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+    .cta-text h2 { font-family: var(--font-header); font-size: 48px; font-weight: 500; line-height: 56px; letter-spacing: -0.06em; }
+    .cta-text p { font-size: 18px; line-height: 28px; color: var(--color-body); }
+
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--color-dark); color: var(--color-white);
+      border: none; border-radius: 32px; padding: 14px 28px;
+      font-family: var(--font-mono); font-size: 14px; cursor: pointer;
+      width: fit-content; letter-spacing: 0.03em;
+    }
+
+    .cta-image { overflow: hidden; }
+    .cta-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── FOOTER ── */
+    footer { padding: 0 12px 12px; background: var(--color-card-bg); }
+
+    .footer-inner { background: var(--color-dark); border-radius: 24px; padding: 56px 52px 40px; color: var(--color-white); }
+
+    .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+    .footer-logo img { height: 26px; }
+    .footer-desc { font-size: 15px; line-height: 24px; color: var(--color-footer-muted); margin-bottom: 24px; }
+
+    .footer-newsletter { display: flex; gap: 8px; }
+    .footer-newsletter input {
+      flex: 1; background: var(--color-mid-gray); border: none;
+      border-radius: 12px; padding: 11px 16px;
+      font-size: 14px; color: var(--color-white); outline: none; font-family: var(--font-body);
+    }
+    .footer-newsletter input::placeholder { color: #5a5a5a; }
+    .footer-newsletter button {
+      background: var(--color-yellow); color: var(--color-dark);
+      border: none; border-radius: 12px; padding: 11px 20px;
+      font-family: var(--font-mono); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap;
+    }
+
+    .footer-col h4 { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-footer-muted); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 15px; color: rgba(255,255,255,0.7); text-decoration: none; }
+    .footer-col a:hover { color: var(--color-white); }
+
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copyright { font-size: 14px; color: var(--color-footer-muted); }
+    .footer-socials { display: flex; gap: 10px; }
+    .social-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; }
+
+    /* ==========================================================================
+       RESPONSIVE — sections
+       ========================================================================== */
+
+    /* ── Ultra-wide (≥1681px): cap content, let hero breathe ── */
+    @media (min-width: 1681px) {
+      .section { max-width: 1440px; padding: 96px 64px; }
+      .logos-inner { max-width: 1440px; padding: 36px 64px; }
+      .section-title { font-size: 56px; line-height: 64px; }
+      .cta-section { min-height: 480px; }
+    }
+
+    /* ── Laptop / small desktop (≤1200px) ── */
+    @media (max-width: 1200px) {
+      .section { padding: 64px 40px; }
+      .logos-inner { padding: 24px 40px; gap: 28px; }
+    }
+
+    /* ── Tablet / iPad (≤991px) ── */
+    @media (max-width: 991px) {
+      .section { padding: 56px 32px; }
+      .section-title { font-size: 40px; line-height: 48px; }
+      .section-header { margin-bottom: 40px; }
+
+      .logos-inner { padding: 24px 40px; }
+
+      /* Services: 4 → 2 */
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Doctors: 3 → 2, last one centered via auto-fit fallback */
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Expertise: keep image + text side by side but smaller padding */
+      .expertise-text { padding: 36px; }
+      .expertise-text h3 { font-size: 24px; line-height: 32px; }
+
+      /* CTA: stack image under text */
+      .cta-section { grid-template-columns: 1fr; }
+      .cta-image { min-height: 280px; }
+      .cta-text { padding: 48px 40px; }
+      .cta-text h2 { font-size: 40px; line-height: 48px; }
+
+      /* Footer: 4 → 2 */
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+      .footer-inner { padding: 48px 32px 32px; }
+    }
+
+    /* ── Mobile landscape (≤767px) ── */
+    @media (max-width: 767px) {
+      .section { padding: 48px 20px; }
+      .section-title { font-size: 32px; line-height: 40px; }
+      .section-sub { font-size: 16px; line-height: 24px; }
+
+      /* Edge panels share a consistent 12px gutter */
+      .hero { padding: 12px; }
+
+      /* Company section: Figma 1:1 — single centered row, clipped */
+      .logos-inner { padding: 24px 52px; gap: 48px; }
+
+      /* Services: 2 → 1 */
+      .services-grid { grid-template-columns: 1fr; }
+
+      /* Doctors: 2 → 1 */
+      .team-grid { grid-template-columns: 1fr; }
+      .team-header { flex-direction: row; align-items: center; }
+
+      /* Expertise: stack text over image */
+      .expertise-item { grid-template-columns: 1fr; }
+      /* Cancel the RTL image-first flip on mobile so text always leads */
+      .expertise-item[style*="rtl"] { direction: ltr !important; }
+      .expertise-text { padding: 32px 24px; }
+      .expertise-img { min-height: 220px; }
+
+      /* CTA */
+      .cta-wrapper { padding: 0 12px 56px; }
+      .cta-text { padding: 40px 28px; }
+      .cta-text h2 { font-size: 32px; line-height: 40px; }
+      .cta-image { min-height: 240px; }
+
+      /* Footer: 2 → 1 */
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+      .footer-inner { padding: 40px 28px 28px; }
+      .footer-bottom { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .footer-newsletter { flex-direction: column; }
+      .footer-newsletter button { width: 100%; }
+    }
+
+    /* ── Mobile portrait (≤479px) ── */
+    @media (max-width: 479px) {
+      .section { padding: 40px 16px; }
+      .section-title { font-size: 28px; line-height: 36px; }
+      .section-header { gap: 12px; margin-bottom: 32px; }
+
+      .logos-inner { padding: 24px 40px; }
+
+      .service-card { padding: 24px 20px; }
+      .doctor-card-img { height: 320px; }
+
+      .expertise-text h3 { font-size: 22px; line-height: 30px; }
+      .expertise-img { min-height: 200px; }
+
+
+      .cta-text h2 { font-size: 28px; line-height: 36px; }
+      .cta-text { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO (3D Orbit) ── -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero__card">
+      <video
+        class="hero__bg"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-hidden="true"
+        poster="/assets/video/hero-poster.jpg"
+      >
+        <source src="/assets/video/hero.webm" type="video/webm" />
+        <source src="/assets/video/hero.mp4" type="video/mp4" />
+      </video>
+
+      <div class="hero__inner">
+        <!-- NAV -->
+        <nav class="navbar" aria-label="Primary">
+          <a class="navbar__brand" href="#">
+            <img
+              class="navbar__logo"
+              src="/assets/logo-ailine.svg"
+              alt=""
+              width="40"
+              height="30"
+              aria-hidden="true"
+            />
+            <span class="navbar__wordmark">Ailine</span>
+          </a>
+
+          <ul class="navbar__menu">
+            <li><a class="navbar__item" href="#">Home</a></li>
+            <li><a class="navbar__item" href="#services">Services</a></li>
+            <li><a class="navbar__item" href="#about">About Us</a></li>
+            <li><a class="navbar__item" href="#doctors">Doctors</a></li>
+          </ul>
+
+          <a class="btn btn--primary navbar__cta" href="#">
+            Book Appointment
+            <span class="btn__icon" aria-hidden="true">→</span>
+          </a>
+
+          <button class="navbar__burger" type="button" aria-label="Open menu">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- CONTENT -->
+        <div class="hero__content">
+          <div class="hero__heading">
+            <h1 class="hero__title">
+              <span class="hero__title-line">Healthcare You Can Trust,</span>
+              <span class="hero__title-line hero__title--muted">Close to Home</span>
+            </h1>
+            <p class="hero__description">
+              Finding a family healthcare provider that you and your family can count on is an important part of your wellness journey.
+            </p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn btn--ghost" href="#services">Our Services</a>
+            <a class="btn btn--primary" href="#">
+              Get Started
+              <span class="btn__icon" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- RATING -->
+        <div class="hero__rating" aria-label="Customer rating">
+          <p class="hero__rating-text">Rated 4.8/5 by 1,350+ patients</p>
+          <div class="hero__stars" aria-hidden="true">
+            <img src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/icon-star.svg" alt="" width="16" height="16" />
+            <img src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/icon-star.svg" alt="" width="16" height="16" />
+            <img src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/icon-star.svg" alt="" width="16" height="16" />
+            <img src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/icon-star.svg" alt="" width="16" height="16" />
+            <img src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/icon-star.svg" alt="" width="16" height="16" />
+          </div>
+        </div>
+
+        <!-- 3D ORBIT -->
+        <div class="hero__floating" aria-hidden="true">
+          <div class="hero-3d">
+            <div class="hero-3d__wrap">
+              <div class="hero-3d__group hero-3d__group--first">
+                <div class="hero-3d__slot"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-1-line.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-1"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-4-bars.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-2"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-7-tags.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-3"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-1-line.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-4"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-4-bars.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-5"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-7-tags.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-6"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-1-line.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-7"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-4-bars.webp" alt="" loading="eager" decoding="async" /></div>
+              </div>
+              <div class="hero-3d__group hero-3d__group--second">
+                <div class="hero-3d__slot"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-2-income.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-1"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-5-people.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-2"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-8-training.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-3"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-2-income.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-4"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-5-people.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-5"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-8-training.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-6"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-2-income.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-7"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-5-people.webp" alt="" loading="eager" decoding="async" /></div>
+              </div>
+              <div class="hero-3d__group hero-3d__group--third">
+                <div class="hero-3d__slot"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-3-transactions.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-1"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-6-performance.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-2"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-9-expertise.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-3"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-3-transactions.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-4"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-6-performance.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-5"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-9-expertise.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-6"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-3-transactions.webp" alt="" loading="eager" decoding="async" /></div>
+                <div class="hero-3d__slot is-7"><img class="hero-3d__card" src="https://d173woph5zl366.cloudfront.net/aeline-orbit-hero/hero-card-6-performance.webp" alt="" loading="eager" decoding="async" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANY SECTION (Figma 1:1) -->
+  <div class="logos-section">
+    <div class="logos-inner">
+      <img src="/assets/aeline-logo-1.svg" alt="" />
+      <img src="/assets/aeline-logo-2.svg" alt="" />
+      <img src="/assets/aeline-logo-3.svg" alt="" />
+      <img src="/assets/aeline-logo-4.svg" alt="" />
+      <img src="/assets/aeline-logo-5.svg" alt="" />
+      <img src="/assets/aeline-logo-6.svg" alt="" />
+      <img src="/assets/aeline-logo-7.svg" alt="" />
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE US -->
+  <div class="section" id="services">
+    <div class="section-header">
+      <p class="section-label">Our Services</p>
+      <h2 class="section-title">Why Patients Choose Us</h2>
+      <p class="section-sub">We are dedicated to providing you with exceptional healthcare tailored to your unique needs.</p>
+      <a class="btn btn--primary" href="#" style="margin-top:8px;padding:0.75em 1.5em">Get Appointment →</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M10 16a6 6 0 0 0 6-6"/><circle cx="18" cy="8" r="2"/><path d="M10 16v1a4 4 0 0 0 8 0v-1"/></svg></div>
+        <h3>Experienced Medical Team</h3>
+        <p>Board-certified physicians and specialists with decades of combined experience providing top-quality care.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></div>
+        <h3>Convenient Scheduling</h3>
+        <p>Same-day appointments and extended hours make it easy to get care when you need it, on your schedule.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <h3>Modern Medical Care</h3>
+        <p>State-of-the-art facilities and the latest medical technology ensure accurate diagnoses and effective treatments.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg></div>
+        <h3>Patient-First Approach</h3>
+        <p>We listen to your concerns and involve you in every decision, ensuring care that truly meets your needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEET DOCTORS -->
+  <div class="section" id="doctors" style="padding-top:0">
+    <div class="team-header">
+      <div>
+        <p class="section-label">Our Team</p>
+        <h2 class="section-title" style="margin-top:12px">Meet Your Doctors</h2>
+      </div>
+      <div class="team-nav">
+        <button class="icon-btn">←</button>
+        <button class="icon-btn dark">→</button>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="doctor-card">
+        <div class="doctor-card-img" role="img" aria-label="Dr. Carl Mitchell" style="background:url('/assets/doctor-3-hq.png') 0% 0%/200% 200% no-repeat;"></div>
+        <div class="doctor-card-body">
+          <h3>Dr. Carl Mitchell, MD</h3>
+          <p class="doctor-specialty">Family Medicine</p>
+          <p class="doctor-years">15+ years experience</p>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-card-img" role="img" aria-label="Dr. Julia Rodriguez" style="background:url('/assets/doctor-3-hq.png') 100% 100%/200% 200% no-repeat;"></div>
+        <div class="doctor-card-body">
+          <h3>Dr. Julia Rodriguez, MD</h3>
+          <p class="doctor-specialty">Pediatrics</p>
+          <p class="doctor-years">12+ years experience</p>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img class="doctor-card-img" src="/assets/team-5.png" alt="Dr. Emily Chen" />
+        <div class="doctor-card-body">
+          <h3>Dr. Emily Chen, DO</h3>
+          <p class="doctor-specialty">Internal Medicine</p>
+          <p class="doctor-years">18+ years experience</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPREHENSIVE CARE -->
+  <div class="section" id="about" style="padding-top:0">
+    <div class="section-header">
+      <p class="section-label">Our Expertise</p>
+      <h2 class="section-title">Comprehensive Care<br />Under One Roof</h2>
+      <p class="section-sub">From routine check-ups to complex conditions, we provide complete healthcare for your entire family.</p>
+    </div>
+    <div class="expertise-list">
+      <div class="expertise-item">
+        <div class="expertise-text">
+          <div class="expertise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M10 16a6 6 0 0 0 6-6"/><circle cx="18" cy="8" r="2"/><path d="M10 16v1a4 4 0 0 0 8 0v-1"/></svg></div>
+          <h3>General Medicine</h3>
+          <p>Comprehensive primary care services for adults, from routine wellness exams to managing chronic conditions.</p>
+        </div>
+        <div class="expertise-img"><img src="/assets/exp-general.jpg" alt="General Medicine" /></div>
+      </div>
+      <div class="expertise-item" style="direction:rtl">
+        <div class="expertise-text" style="direction:ltr">
+          <div class="expertise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5.5"/><path d="M21 20a6 6 0 0 0-4-5.6"/></svg></div>
+          <h3>Family Care</h3>
+          <p>Dedicated healthcare for every member of your family, built on trust and long-term relationships.</p>
+        </div>
+        <div class="expertise-img" style="direction:ltr"><img src="/assets/exp-family.jpg" alt="Family Care" /></div>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-text">
+          <div class="expertise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8.5 14.5a4 4 0 0 0 7 0"/></svg></div>
+          <h3>Pediatrics</h3>
+          <p>Gentle, expert care for children of all ages, supporting healthy development from infancy through adolescence.</p>
+        </div>
+        <div class="expertise-img"><img src="/assets/exp-pediatrics.jpg" alt="Pediatrics" /></div>
+      </div>
+      <div class="expertise-item" style="direction:rtl">
+        <div class="expertise-text" style="direction:ltr">
+          <div class="expertise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></svg></div>
+          <h3>Women's Health</h3>
+          <p>Specialized services addressing the unique healthcare needs of women at every stage of life.</p>
+        </div>
+        <div class="expertise-img" style="direction:ltr"><img src="/assets/exp-women.jpg" alt="Women's Health" /></div>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-text">
+          <div class="expertise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#131313" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 2l6 6M19 5l-9 9-4 1 1-4 9-9zM13 6l5 5M9 15l-5 5"/></svg></div>
+          <h3>Vaccinations</h3>
+          <p>Complete immunization programs for children and adults to protect against preventable diseases.</p>
+        </div>
+        <div class="expertise-img"><img src="/assets/exp-vaccine.jpg" alt="Vaccinations" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS (Figma 1:1) -->
+  <div class="testimonials-bg">
+    <div class="section">
+      <div class="section-header section-header--left">
+        <p class="section-label">Testimonials</p>
+        <h2 class="section-title">What they say about us?</h2>
+        <p class="section-sub">Hear from the patients who trust us with their health every day.</p>
+      </div>
+
+      <div class="testimonial-track" id="testimonial-track">
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/testimonial-photo.png" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"Caring, attentive, and always on time."</p>
+            </div>
+            <p class="testimonial-author-line">- John Doe</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/patient-1.jpg" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"The doctors actually listened and explained everything clearly."</p>
+            </div>
+            <p class="testimonial-author-line">- Sarah Mitchell</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/patient-2.jpg" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"Booked online and was seen the same day. Incredible."</p>
+            </div>
+            <p class="testimonial-author-line">- Emma Lewis</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/patient-3.jpg" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"They treat my whole family with genuine warmth."</p>
+            </div>
+            <p class="testimonial-author-line">- Michael Reyes</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/patient-4.jpg" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"Modern facilities and a team that truly cares."</p>
+            </div>
+            <p class="testimonial-author-line">- Olivia Kim</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <img class="testimonial-photo" src="/assets/patient-5.jpg" alt="" />
+          <div class="testimonial-overlay">
+            <div class="testimonial-quote">
+              <img class="testimonial-quote-icon" src="/assets/quote-icon.svg" alt="" />
+              <p class="testimonial-quote-text">"From check-in to follow-up, everything was seamless."</p>
+            </div>
+            <p class="testimonial-author-line">- David Park</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-nav">
+        <button type="button" aria-label="Previous" data-testimonial-prev>←</button>
+        <button type="button" aria-label="Next" data-testimonial-next>→</button>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const track = document.getElementById("testimonial-track");
+      if (!track) return;
+      const step = () => {
+        const card = track.querySelector(".testimonial-card");
+        const gap = parseFloat(getComputedStyle(track).columnGap || "16") || 16;
+        return card ? card.getBoundingClientRect().width + gap : 320;
+      };
+      document.querySelector("[data-testimonial-prev]")?.addEventListener("click", () => {
+        track.scrollBy({ left: -step(), behavior: "smooth" });
+      });
+      document.querySelector("[data-testimonial-next]")?.addEventListener("click", () => {
+        track.scrollBy({ left: step(), behavior: "smooth" });
+      });
+    })();
+  </script>
+
+  <!-- CTA -->
+  <div class="cta-wrapper">
+    <div class="cta-section">
+      <div class="cta-text">
+        <p class="section-label">Book Now</p>
+        <h2>Ready to Schedule Your Visit?</h2>
+        <p>Take the first step toward better health. Our team is ready to provide the personalized care you deserve.</p>
+        <button class="btn-dark">Book Appointment →</button>
+      </div>
+      <div class="cta-image">
+        <img src="/assets/cta-photo.jpg" alt="Schedule your visit" />
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">
+            <img src="/assets/logo-ailine.svg" alt="Ailine" />
+            Ailine
+          </div>
+          <p class="footer-desc">Your trusted healthcare partner, providing compassionate and comprehensive medical care for your entire family.</p>
+          <div class="footer-newsletter">
+            <input type="email" placeholder="Enter your email" />
+            <button>Subscribe</button>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">General Medicine</a></li>
+            <li><a href="#">Family Care</a></li>
+            <li><a href="#">Pediatrics</a></li>
+            <li><a href="#">Women's Health</a></li>
+            <li><a href="#">Vaccinations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Our Doctors</a></li>
+            <li><a href="#">Insurance</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Ailine Inc. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">tw</a>
+          <a href="#" class="social-btn">fb</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reduced-motion detection -->
+  <script>
+    const root = document.querySelector(".hero");
+    if (root) {
+      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const setMotionState = (e) => { root.dataset.motion = e.matches ? "reduced" : "full"; };
+      setMotionState(motionQuery);
+      motionQuery.addEventListener("change", setMotionState);
+    }
+  </script>
+
+</body>
+</html>

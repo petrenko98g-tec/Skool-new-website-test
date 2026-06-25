@@ -1,0 +1,6 @@
+name = "skool-new-website-test"
+compatibility_date = "2026-06-23"
+
+# Serve the static Astro build output (dist) as a static-assets Worker
+[assets]
+directory = "./dist"
